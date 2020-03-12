@@ -13,7 +13,7 @@ namespace DsServices.Controllers
     public class CustomerController
     {
         [HttpGet("api/LoginUser/{username}/{password}")]
-        public string LoginUser(string username, string password)
+        public string GetCustomerByUserName(string username, string password)
         {
             try
             {
@@ -26,6 +26,8 @@ namespace DsServices.Controllers
                 return ex.Message;
             }
         }
+
+
         [HttpPost("api/CreateCustomer/{cust}")]
         public string InsertCustomer(Customer cust)
         {
@@ -34,6 +36,8 @@ namespace DsServices.Controllers
                 var dbContext = new DsContext();
                 Customer custTbl = new Customer();
                 custTbl.CustomerName = cust.CustomerName;
+                custTbl.CustomerAddress = cust.CustomerAddress;
+                
                 custTbl.EmailId = cust.EmailId;
                 dbContext.Customer.Add(custTbl);
                 dbContext.SaveChanges();

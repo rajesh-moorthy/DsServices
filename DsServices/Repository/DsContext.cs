@@ -15,7 +15,7 @@ namespace DsServices.Repository
 
         public DbSet<Preference> Preferences { get; set; }
 
-        public DbSet<Towns> Town { get; set; }
+        public DbSet<Cities> city { get; set; }
 
         public DbSet<AdImage> AdImages { get; set; }
 

@@ -28,18 +28,19 @@ namespace DsServices.Controllers
             }
         }
 
+        
         [HttpGet("api/GetVendorsByTown/{townId}")]
-        public string GetVendorsByTown(int townId)
+        public List<Vendor> GetVendorsByTown(int townId)
         {
             try
             {
                 var dbContext = new DsContext();
                 var vendors = dbContext.Vendors.Where(u => u.Active == 1 && u.TownId==townId);
-                return JsonConvert.SerializeObject(vendors);
+                return vendors.ToList();
             }
             catch(Exception ex)
             {
-                return ex.Message;
+                return null;
             }
         }
 
@@ -47,9 +48,15 @@ namespace DsServices.Controllers
         [HttpPost]
         public async Task<ActionResult<Vendor>> PostTodoItem(Vendor vendors)
         {
+
             var dbContext = new DsContext();
-            dbContext.Vendors.Add(vendors);
-            await dbContext.SaveChangesAsync();
+            var vend = dbContext.Vendors.Where(u => u.UserName == vendors.UserName && u.Password == vendors.Password);
+            if(vend != null)
+            {
+                dbContext.Vendors.Add(vendors);
+                await dbContext.SaveChangesAsync();
+            }
+            
 
             //return CreatedAtAction("GetTodoItem", new { id = todoItem.Id }, todoItem);
             return CreatedAtAction(nameof(Vendor), new { id = vendors.VendorId }, vendors);

@@ -9,6 +9,7 @@ namespace DsServices.Models
         [Key]
         public int CustomerId {get;set;}
         public string CustomerName {get;set;}
+        public string CustomerAddress { get; set; }
         public int CustomerTown	{get;set;}
         public string EmailId	{get;set;}
         public string MobileNumber {get;set;}

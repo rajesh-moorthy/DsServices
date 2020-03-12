@@ -14,13 +14,13 @@ namespace DsServices.Controllers
     public class TownController : ControllerBase
     {
         [HttpGet("api/GetTowns")]
-        public List<Towns> GetActiveTowns()
+        public List<Cities> GetActiveTowns()
         {
             try
             {
                 var dbContext = new DsContext();
-                var town = dbContext.Town.Where(u => u.Active == 1);
-                return town.ToList()
+                var town = dbContext.city.Where(u => u.Active == 1);
+                return town.ToList();
             }
             catch (Exception ex)
             {
